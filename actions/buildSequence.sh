@@ -14,9 +14,9 @@ npm --prefix ./webhook run build
 
 if [ "$3" = "1" ];
     then
-       wsk action -i update webhook ./webhook/webhook.zip --kind nodejs:default
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i update webhook ./webhook/webhook.zip --kind nodejs:default
     else
-       wsk action -i create webhook ./webhook/webhook.zip --kind nodejs:default
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i create webhook ./webhook/webhook.zip --kind nodejs:default
 fi
 
 rm ./webhook/webhook.zip
@@ -27,9 +27,9 @@ npm --prefix ./processmessage run build
 
 if [ "$3" = "1" ];
     then
-       wsk action -i update processmessage ./processmessage/processmessage.zip --kind nodejs:default --param user_token $1 --param-file ./processmessage/params.json
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i update processmessage ./processmessage/processmessage.zip --kind nodejs:default --param user_token $1 --param-file ./processmessage/params.json
     else
-       wsk action -i create processmessage ./processmessage/processmessage.zip --kind nodejs:default --param user_token $1 --param-file ./processmessage/params.json
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i create processmessage ./processmessage/processmessage.zip --kind nodejs:default --param user_token $1 --param-file ./processmessage/params.json
 fi
 
 rm ./processmessage/processmessage.zip
@@ -40,9 +40,9 @@ npm --prefix ./sendmessage run build
 
 if [ "$3" = "1" ];
     then
-       wsk action -i update sendmessage ./sendmessage/sendmessage.zip --kind nodejs:default --param botToken $2
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i update sendmessage ./sendmessage/sendmessage.zip --kind nodejs:default --param botToken $2
     else
-       wsk action -i create sendmessage ./sendmessage/sendmessage.zip --kind nodejs:default --param botToken $2
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i create sendmessage ./sendmessage/sendmessage.zip --kind nodejs:default --param botToken $2
 fi
 
 rm ./sendmessage/sendmessage.zip
@@ -51,12 +51,12 @@ rm -rf ./sendmessage/etc
 #sequence
 if [ "$3" = "1" ];
     then
-       wsk action -i update sequenceAction --sequence webhook,processmessage,sendmessage
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i update sequenceAction --sequence webhook,processmessage,sendmessage
     else
-       wsk action -i create sequenceAction --sequence webhook,processmessage,sendmessage
+       ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i create sequenceAction --sequence webhook,processmessage,sendmessage
 fi
 
 if [ "$4" = "1" ];
     then
-        wsk action -i invoke --blocking sequenceAction --param-file sequence/params.json
+        ./Documentos/src/github.com/apache/incubator-openwhisk-cli/wsk action -i invoke --blocking sequenceAction --param-file sequence/params.json
 fi
